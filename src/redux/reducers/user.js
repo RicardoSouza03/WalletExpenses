@@ -1,4 +1,4 @@
-import { LOGIN, REQUEST } from '../actions';
+import { LOGIN } from '../actions';
 
 // Esse reducer será responsável por tratar as informações da pessoa usuária
 const INITIAL_STATE = {
@@ -8,10 +8,8 @@ const INITIAL_STATE = {
 
 const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case REQUEST:
-    return { ...state, isFetching: true };
   case LOGIN:
-    return { ...state, email: action.email, isFetching: false };
+    return { ...state, email: action.email };
   default:
     return state;
   }

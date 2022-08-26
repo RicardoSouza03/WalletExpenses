@@ -10,13 +10,13 @@ export const loginAction = (email) => ({
   email,
 });
 
-const requestAction = () => ({
-  type: REQUEST,
-});
+// const requestAction = () => ({
+//   type: REQUEST,
+// });
 
 const requestSuccess = (state) => ({
   type: REQUEST_SUCCESS,
-  payload: state,
+  payload: [state],
 });
 
 const requestFailure = (error) => ({
@@ -26,7 +26,6 @@ const requestFailure = (error) => ({
 
 export function fecthCoin() {
   return async (dispatch) => {
-    dispatch(requestAction());
     const request = await awsomeApiFetch();
     try {
       const data = requestSuccess(request);
