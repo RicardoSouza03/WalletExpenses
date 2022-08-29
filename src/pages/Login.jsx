@@ -37,11 +37,13 @@ class Login extends React.Component {
     const { email, password, disableButton } = this.state;
 
     return (
-      <main>
+      <form>
         <input
           type="email"
           name="email"
           onChange={ this.changeHandler }
+          label="Email"
+          placeholder="Email"
           value={ email }
           data-testid="email-input"
         />
@@ -49,6 +51,8 @@ class Login extends React.Component {
           type="password"
           name="password"
           onChange={ this.changeHandler }
+          label="Senha"
+          placeholder="Senha"
           value={ password }
           data-testid="password-input"
         />
@@ -59,7 +63,7 @@ class Login extends React.Component {
         >
           Entrar
         </button>
-      </main>
+      </form>
     );
   }
 }

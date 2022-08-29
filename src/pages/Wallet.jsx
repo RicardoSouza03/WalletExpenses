@@ -12,14 +12,23 @@ class Wallet extends React.Component {
   }
 
   render() {
+    const { errorMessage } = this.props;
     return (
       <div>
-        <Header />
-        <WalletForm />
+        { errorMessage || (
+          <div>
+            <Header />
+            <WalletForm />
+          </div>
+        )}
       </div>
     );
   }
 }
+
+const mapStateToProps = ({ wallet: { errorMessage } }) => ({
+  errorMessage,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   currenciesFetch: () => dispatch(fecthCoin()),
@@ -27,6 +36,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 Wallet.propTypes = {
   customElements: PropTypes.func,
+  errorMessage: PropTypes.string,
 }.isRequired;
 
-export default connect(null, mapDispatchToProps)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

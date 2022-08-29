@@ -8,11 +8,11 @@ class Header extends Component {
 
     return (
       <main>
-        <div data-testid="email-field">
+        <h2 data-testid="email-field">
           { email }
-        </div>
-        <div data-testid="total-field">{ expensesTotalValue.toFixed(2) }</div>
-        <span data-testid="header-currency-field">BRL</span>
+        </h2>
+        <h3 data-testid="total-field">{ expensesTotalValue.toFixed(2) }</h3>
+        <h4 data-testid="header-currency-field">BRL</h4>
       </main>
     );
   }
