@@ -4,6 +4,7 @@ export const LOGIN = 'LOGIN';
 export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 export const REQUEST_FAILURE = 'REQUEST_FAILURE';
 export const REQUEST = 'REQUEST';
+export const ADDING_EXPENSE = 'ADDING_EXPENSE';
 
 export const loginAction = (email) => ({
   type: LOGIN,
@@ -23,6 +24,24 @@ const requestFailure = (error) => ({
   type: REQUEST_FAILURE,
   error,
 });
+
+const addExpense = (expense) => ({
+  type: ADDING_EXPENSE,
+  payload: expense,
+});
+
+export function expensesFetch(expense) {
+  return async (dispatch) => {
+    const exchangeRates = await awsomeApiFetch();
+    try {
+      expense.exchangeRates = exchangeRates;
+      const data = addExpense(expense);
+      dispatch(data);
+    } catch (error) {
+      dispatch(requestFailure(error.message));
+    }
+  };
+}
 
 export function fecthCoin() {
   return async (dispatch) => {
