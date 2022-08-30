@@ -5,12 +5,17 @@ export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 export const REQUEST_FAILURE = 'REQUEST_FAILURE';
 export const REQUEST = 'REQUEST';
 export const ADDING_EXPENSE = 'ADDING_EXPENSE';
+export const REMOVING_EXPENSE = 'REMOVING_EXPENSE';
 
 export const loginAction = (email) => ({
   type: LOGIN,
   email,
 });
 
+export const removingExpense = (expense) => ({
+  type: REMOVING_EXPENSE,
+  expense,
+});
 // const requestAction = () => ({
 //   type: REQUEST,
 // });

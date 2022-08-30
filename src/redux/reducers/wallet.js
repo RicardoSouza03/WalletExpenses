@@ -1,11 +1,15 @@
-import { REQUEST_FAILURE, REQUEST_SUCCESS, ADDING_EXPENSE } from '../actions';
+import {
+  REQUEST_FAILURE,
+  REQUEST_SUCCESS,
+  ADDING_EXPENSE,
+  REMOVING_EXPENSE,
+} from '../actions';
 
-// Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 const INITIAL_STATE = {
-  currencies: [], // array de string
-  expenses: [], // array de objetos, com cada objeto tendo as chaves id, value, currency, method, tag, description e exchangeRates
-  editor: false, // valor booleano que indica de uma despesa está sendo editada
-  idToEdit: 0, // valor numérico que armazena o id da despesa que esta sendo editada
+  currencies: [],
+  expenses: [],
+  editor: false,
+  idToEdit: 0,
   isFetching: false,
   errorMessage: '',
   expensesTotalValue: 0,
@@ -30,6 +34,19 @@ const wallet = (state = INITIAL_STATE, action) => {
       * parseFloat(exchangeRates[currency].ask)) };
   }
 
+  case REMOVING_EXPENSE: {
+    const expensesWithItemRemoved = state.expenses
+      .filter(({ id }) => id !== action.expense.id);
+
+    const { exchangeRates, currency, value } = action.expense;
+    return {
+      ...state,
+      expenses: expensesWithItemRemoved,
+      expensesTotalValue: state.expensesTotalValue - (
+        parseFloat(parseFloat(value * exchangeRates[currency].ask).toFixed(2))
+      ),
+    };
+  }
   default:
     return state;
   }
