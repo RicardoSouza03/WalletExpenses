@@ -25,7 +25,9 @@ class WalletForm extends Component {
       changeStatusToEditing,
     } = this.props;
 
+    // É feita uma verificação dupla, para que não ocorra um looping infinito na atualização.
     if (editor && formStatus === 1) {
+      // É feito este fetch para alterar o status do form, para que não ocorra um looping.
       changeStatusToEditing();
       const expenseToEdit = expenses.find(({ id }) => id === idToEdit);
       const { id, value, description, currency, method, tag } = expenseToEdit;
@@ -33,10 +35,7 @@ class WalletForm extends Component {
     }
   }
 
-  handleChange = ({ target }) => {
-    const { name, value } = target;
-    this.setState({ [name]: value });
-  };
+  handleChange = ({ target: { name, value } }) => this.setState({ [name]: value });
 
   handleSubmit = (e) => {
     const {
@@ -81,8 +80,7 @@ class WalletForm extends Component {
       <option key={ tag } value={ tag }>{tag}</option>
     ));
 
-    const { value, description,
-      currency, tag, method } = this.state;
+    const { value, description, currency, tag, method } = this.state;
     return (
       <form onSubmit={ this.handleSubmit }>
         <input
@@ -133,9 +131,7 @@ class WalletForm extends Component {
   }
 }
 
-const mapStateToProps = ({ wallet }) => ({
-  wallet,
-});
+const mapStateToProps = ({ wallet }) => ({ wallet });
 
 const mapDispatchToProps = (dispatch) => ({
   addNewExpense: (expense) => dispatch(expensesFetch(expense)),
@@ -143,8 +139,6 @@ const mapDispatchToProps = (dispatch) => ({
   changeStatusToEditing: () => dispatch(changeFormsStatusToEditing),
 });
 
-WalletForm.propTypes = {
-  wallet: PropTypes.object,
-}.isRequired;
+WalletForm.propTypes = { wallet: PropTypes.object }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletForm);

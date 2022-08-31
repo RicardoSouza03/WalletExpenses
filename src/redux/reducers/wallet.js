@@ -6,7 +6,7 @@ import {
   EDITING_EXPENSE,
   EXPENSE_HAS_BEEN_EDITED,
   FORMS_STATUS_EDITING,
-} from '../actions';
+} from '../actions/actionsTypes';
 
 const ALL_STATUS_FORM = {
   readyToAddExpense: 0,
@@ -49,9 +49,10 @@ const SWITCH_CASES = {
     return {
       ...state,
       expenses: expensesWithItemRemoved,
-      expensesTotalValue: state.expensesTotalValue - (
-        parseFloat(parseFloat(value * exchangeRates[currency].ask).toFixed(2))
-      ),
+      expensesTotalValue: expensesWithItemRemoved.length === 0 ? 0
+        : state.expensesTotalValue - (parseFloat(parseFloat(value
+          * exchangeRates[currency].ask).toFixed(2))
+        ),
     };
   },
 
