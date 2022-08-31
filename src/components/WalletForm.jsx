@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { expensesFetch } from '../redux/actions';
+import {
+  expensesFetch,
+  expenseHasBeenEdited,
+  changeFormsStatusToEditing,
+} from '../redux/actions';
 
-const TAG_DEFAULT = 'Alimentação';
+const EXPENSE_TAGS = ['Alimentação', 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
 
 class WalletForm extends Component {
   state = {
@@ -12,8 +16,22 @@ class WalletForm extends Component {
     description: '',
     currency: 'USD',
     method: 'Dinheiro',
-    tag: TAG_DEFAULT,
+    tag: 'Alimentação',
   };
+
+  componentDidUpdate() {
+    const {
+      wallet: { expenses, editor, formStatus, idToEdit },
+      changeStatusToEditing,
+    } = this.props;
+
+    if (editor && formStatus === 1) {
+      changeStatusToEditing();
+      const expenseToEdit = expenses.find(({ id }) => id === idToEdit);
+      const { id, value, description, currency, method, tag } = expenseToEdit;
+      this.setState({ id, value, description, currency, method, tag });
+    }
+  }
 
   handleChange = ({ target }) => {
     const { name, value } = target;
@@ -21,29 +39,46 @@ class WalletForm extends Component {
   };
 
   handleSubmit = (e) => {
-    const { expensesAdd } = this.props;
+    const {
+      addNewExpense,
+      editExpense,
+      wallet,
+      wallet: { expenses, idToEdit },
+    } = this.props;
+
+    const { id } = this.state;
     e.preventDefault();
-    this.setState(({ id }) => ({
-      id: id + 1,
+
+    const verifyIfIdIsRepeated = expenses.some((expense) => expense.id === id);
+    const findLastIdOnExpenses = expenses.reduce((higerNum, expense) => {
+      if (higerNum < expense.id) higerNum = expense.id;
+      return higerNum;
+    }, 0);
+
+    this.setState({
+      id: verifyIfIdIsRepeated ? findLastIdOnExpenses + 1 : id + 1,
       value: '',
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
-      tag: TAG_DEFAULT,
-    }));
-    expensesAdd(this.state);
+      tag: EXPENSE_TAGS[0],
+    });
+
+    const expenseToEdit = expenses.find((expense) => expense.id === idToEdit);
+    if (wallet.editor) return editExpense({ ...expenseToEdit, ...this.state });
+
+    addNewExpense(this.state);
   };
 
   render() {
-    const { wallet: { currencies } } = this.props;
+    const { wallet: { currencies, editor } } = this.props;
 
-    const currenciesKeys = currencies.length && currencies.map((currencyName, index) => (
-      <option key={ index } value={ currencyName }>{currencyName}</option>
+    const currenciesKeys = currencies.length && currencies.map((currencyName) => (
+      <option key={ currencyName } value={ currencyName }>{currencyName}</option>
     ));
 
-    const expensesActions = [TAG_DEFAULT, 'Lazer', 'Trabalho', 'Transporte', 'Saúde'];
-    const expensesOptions = expensesActions.map((tag, index) => (
-      <option key={ index } value={ tag }>{tag}</option>
+    const expensesOptions = EXPENSE_TAGS.map((tag) => (
+      <option key={ tag } value={ tag }>{tag}</option>
     ));
 
     const { value, description,
@@ -90,7 +125,9 @@ class WalletForm extends Component {
         >
           {expensesOptions}
         </select>
-        <button type="submit">Adicionar despesa</button>
+        <button type="submit">
+          {editor ? 'Editar despesa' : 'Adicionar despesa'}
+        </button>
       </form>
     );
   }
@@ -101,7 +138,9 @@ const mapStateToProps = ({ wallet }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  expensesAdd: (expense) => dispatch(expensesFetch(expense)),
+  addNewExpense: (expense) => dispatch(expensesFetch(expense)),
+  editExpense: (expense) => dispatch(expenseHasBeenEdited(expense)),
+  changeStatusToEditing: () => dispatch(changeFormsStatusToEditing),
 });
 
 WalletForm.propTypes = {
