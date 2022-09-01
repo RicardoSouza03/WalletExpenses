@@ -32,13 +32,13 @@ const addNewExpense = (expense) => ({ type: ADDING_NEW_EXPENSE, payload: expense
 
 export function expensesFetch(expense) {
   return async (dispatch) => {
-    const exchangeRates = await awsomeApiFetch();
-    try {
+    const request = await awsomeApiFetch();
+    if (typeof request === 'string') {
+      dispatch(requestFailure(request));
+    } else {
       // cria uma nova chave dentro do objeto expense, com os valores retornados da API.
-      expense.exchangeRates = exchangeRates;
+      expense.exchangeRates = request;
       dispatch(addNewExpense(expense));
-    } catch (error) {
-      dispatch(requestFailure(error.message));
     }
   };
 }
@@ -46,10 +46,10 @@ export function expensesFetch(expense) {
 export function fecthCoin() {
   return async (dispatch) => {
     const request = await awsomeApiFetch();
-    try {
+    if (typeof request === 'string') {
+      dispatch(requestFailure(request));
+    } else {
       dispatch(requestSuccess(request));
-    } catch (error) {
-      dispatch(requestFailure(error.message));
     }
   };
 }
