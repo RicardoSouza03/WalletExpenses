@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TextField, Box, Grid, Typography, Button } from '@mui/material';
 import { connect } from 'react-redux';
 import { loginAction } from '../redux/actions';
 
@@ -37,33 +38,58 @@ class Login extends React.Component {
     const { email, password, disableButton } = this.state;
 
     return (
-      <form>
-        <input
-          type="email"
-          name="email"
-          onChange={ this.changeHandler }
-          label="Email"
-          placeholder="Email"
-          value={ email }
-          data-testid="email-input"
-        />
-        <input
-          type="password"
-          name="password"
-          onChange={ this.changeHandler }
-          label="Senha"
-          placeholder="Senha"
-          value={ password }
-          data-testid="password-input"
-        />
-        <button
-          type="button"
-          onClick={ this.buttonHandler }
-          disabled={ disableButton }
+      <Grid
+        container
+        spacing={ 0 }
+        alignItems="center"
+        justifyContent="center"
+        style={ { minHeight: '100vh' } }
+      >
+        <Box
+          sx={ {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 3,
+            border: '2px solid gray',
+            borderRadius: 4,
+            px: 7,
+            py: 6,
+          } }
         >
-          Entrar
-        </button>
-      </form>
+          <Typography variant="h4" sx={ { textDecoration: 'underline' } }>
+            Login
+          </Typography>
+          <TextField
+            type="email"
+            name="email"
+            onChange={ this.changeHandler }
+            label="Email"
+            variant="outlined"
+            value={ email }
+            data-testid="email-input"
+            sx={ { fontSize: '50px' } }
+          />
+          <TextField
+            type="password"
+            name="password"
+            onChange={ this.changeHandler }
+            label="Senha"
+            variant="outlined"
+            value={ password }
+            data-testid="password-input"
+          />
+          <Button
+            type="button"
+            variant="contained"
+            onClick={ this.buttonHandler }
+            disabled={ disableButton }
+            sx={ { minWidth: '100%' } }
+          >
+            Entrar
+          </Button>
+        </Box>
+      </Grid>
     );
   }
 }
