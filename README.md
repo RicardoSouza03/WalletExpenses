@@ -1,16 +1,29 @@
-# 🚧 README em construção 🚧
+# Carteira de gerenciamento de gastos.
 
-<!-- Olá, Tryber!
+Este é um dos projetos realizados durante o meu período como estudante na [*Trybe*](https://www.betrybe.com/).
 
-Esse é apenas um arquivo inicial para o README do seu projeto.
+### O que foi desenvolvido:
 
-É essencial que você preencha esse documento por conta própria, ok?
+Foi feita uma aplicação com as tecnologias, *React* e *Redux*, que utiliza das cotações monetárias fornecidas pela API, [Awsomeapii](https://docs.awesomeapi.com.br/api-de-moedas).
+Com o objetivo de desenvolver uma carteira digital para o controle de gastos, que converte estes para o BRL.
 
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
+### Como funciona:
 
-⚠️ IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
+* O usuário informa o valor e uma descrição;
+* Seleciona a moeda em que gastou;
+* O método de pagamento e para qual fim aquele valor foi gasto;
+* E é adicionada a despesa dentro da tabela.
 
--->
+## Ferramentas utilizadas
+
+Este projeto foi desenvolvido com o intúito de se aprender a utilizar a ferramenta *Redux*, mas além desta, também foi utilizado:
+
+1. HTML e CSS;
+2. JavaScript;
+3. React, React Router, RTL;
+4. Redux e Redux Thunk;
+5. Biblioteca [MUI](https://mui.com/pt/) para a estilização.
+
+-------------
+
+> Os **arquivos de testes** estão *quebrados*, sinta-se a vontade para clonar o repositório e arrumá-los caso queira :wink:.
