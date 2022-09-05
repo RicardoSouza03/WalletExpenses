@@ -5,7 +5,7 @@ Este é um dos projetos realizados durante o meu período como estudante na [*Tr
 ### O que foi desenvolvido:
 
 Foi feita uma aplicação com as tecnologias, *React* e *Redux*, que utiliza das cotações monetárias fornecidas pela API, [Awsomeapii](https://docs.awesomeapi.com.br/api-de-moedas).
-Com o objetivo de desenvolver uma carteira digital para o controle de gastos, que converte estes para o BRL.
+Com o objetivo de desenvolver uma carteira digital para o controle de gastos, convertendo-os para o Real (BRL).
 
 ### Como funciona:
 
