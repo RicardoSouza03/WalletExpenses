@@ -9,6 +9,10 @@ Com o objetivo de desenvolver uma carteira digital para o controle de gastos, co
 
 ### Como funciona:
 
+<p align='center'>
+  <img src='src/assets/ezgif.com-gif-maker.gif' />
+</p>
+
 * O usuário informa o valor e uma descrição;
 * Seleciona a moeda em que gastou;
 * O método de pagamento e para qual fim aquele valor foi gasto;
